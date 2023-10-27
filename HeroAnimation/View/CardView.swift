@@ -1,15 +1,20 @@
 //
-//  SwiftUIView.swift
+//  CardView.swift
 //  HeroAnimation
 //
-//  Created by Edgar Ernesto Vergara Montiel on 26/10/23.
+//  Created by Edgar Ernesto Vergara Montiel on 27/10/23.
 //
 
 import SwiftUI
 
-struct CarddView: View {
+struct CardView: View {
     let item: Today
-    var animation: Namespace.ID
+    
+    let currentItem: Today?
+    let showDetailPage: Bool
+    let animateView: Bool
+    
+    let animation: Namespace.ID
     
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
@@ -42,6 +47,7 @@ struct CarddView: View {
                 })
                 .foregroundStyle(.white)
                 .padding()
+                .offset(y: currentItem?.id == item.id && animateView ? safeArea().top : 0)
             }
             
             HStack(spacing: 12) {
@@ -51,7 +57,7 @@ struct CarddView: View {
                     .frame(width: 60, height: 60)
                     .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
                 
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: 8) {
                     Text(item.platformTitle.uppercased())
                         .font(.caption)
                         .foregroundStyle(.gray)
@@ -92,5 +98,12 @@ struct CarddView: View {
 
 #Preview {
     @Namespace var animation
-    return CarddView(item: todayItems[0], animation: animation)
+    
+    return CardView(
+        item: todayItems[0],
+        currentItem: todayItems[0], 
+        showDetailPage: false,
+        animateView: false,
+        animation: animation
+    )
 }
