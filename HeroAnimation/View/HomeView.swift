@@ -17,6 +17,8 @@ struct HomeView: View {
     @State var animateContent: Bool = false
     @State var scrollOffset: CGFloat = 0
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
@@ -66,7 +68,7 @@ struct HomeView: View {
         }
         .background(alignment: .top) {
             RoundedRectangle(cornerRadius: 15, style: .continuous)
-                .fill(Color(.red))
+                .fill(colorScheme == .light ? .white : .black)
                 .frame(height: animateView ? nil : 350, alignment: .top)
                 .scaleEffect(animateView ? 1 : 0.93)
                 .opacity(animateView ? 1 : 0)
